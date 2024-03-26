@@ -14,8 +14,9 @@ const createWindow = () => {
     // ロードが終わっていたら要素を追加
     const dist = document.createElement('div');
     dist.style.position = 'fixed';
-    dist.style.left = '0px';
-    dist.style.top = '0px';
+    dist.style.left = '50%';
+    dist.style.top = '50%';
+    dist.style.transform = 'translate(-50%,-50%)';
     dist.style.zIndex = '1201';
     document.body.appendChild(dist);
     ReactDOM.createRoot(dist as HTMLElement).render(<Window/>);

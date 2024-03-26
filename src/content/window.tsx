@@ -1,6 +1,6 @@
-import { AppBar, DialogContent, IconButton, ListItemButton, ListItemText, Paper, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, CircularProgress, DialogContent, Grid, IconButton, ListItemButton, ListItemText, Modal, Paper, Toolbar, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/close";
-import React from "react";
+import React, { useState } from "react";
 import Draggable from "react-draggable";
 
 import scrape from "./scrape";
@@ -8,6 +8,17 @@ import cthulhu from "./cthulhu";
 
 // ダイスカウンターのウィンドウ
 export default function Window() {
+
+    // 現在集計中か？
+    const [isCounting, setIsCounting] = useState(false);
+
+    // クトゥルフ神話TRPGのダイス目を計算する
+    const cthulhuCount = async () => {
+        setIsCounting(true);
+        const chats = await scrape();
+        cthulhu(chats);
+        setIsCounting(false);
+    };
 
     // ボタンに対して共通して定義するスタイル
     const buttonStyle = {
@@ -37,11 +48,23 @@ export default function Window() {
                                 以下をクリックすると、ダイスロールの集計結果がJSONで出力されます。
                             </Typography>
                         </ListItemText>
-                        <ListItemButton sx={buttonStyle} onClick={() => scrape().then(value => cthulhu(value))}>For クトゥルフ神話TRPG (6版/7版)</ListItemButton>
+                        <ListItemButton sx={buttonStyle} onClick={cthulhuCount}>For クトゥルフ神話TRPG (6版/7版)</ListItemButton>
                         <ListItemButton sx={buttonStyle}>For エモクロアTRPG</ListItemButton>
                     </DialogContent>
                 </Paper>
             </Draggable>
+            <Modal open={isCounting}>
+                <Box sx={{position:'fixed',top:'50%',left:'50%',transform:'translate(-50%,-50%)'}}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <CircularProgress size={120} sx={{color:'white'}}/>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography variant="h4" sx={{color:'white'}}>集計中...</Typography>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Modal>
         </React.Fragment>
     )
 }
