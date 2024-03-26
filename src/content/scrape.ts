@@ -36,4 +36,36 @@ export default async function scrape() {
         prevtop = chat.scrollTop;
         await delay(500);
     }
+
+    // 取得結果を変換する
+    const chats = new Array<ChatItem>();
+    for(const item of elements) {
+
+        // チャットを書き込んだ人を取得
+        const personElement = item.querySelector('h6');
+        if(!personElement) {
+            console.error('Failed to get person info.');
+            continue;
+        }
+        const person = (personElement.innerHTML ?? '').replace(/<span( [^=]+="[^"]+")*>(.|\n)*<\/span>/, '');
+
+        // チャットの内容を取得
+        const contentElement = item.querySelector('p');
+        if(!contentElement) {
+            console.error('Failed to get content info.');
+            continue;
+        }
+        const content = (contentElement.innerHTML ?? '').replace(/<span( [^=]+="[^"]+")*>(.|\n)*<\/span>/, '');
+
+        // ダイスロールの結果があった場合、任意項目として取得
+        const dicerollElement = item.querySelector('p > span');
+        if(dicerollElement) {
+            const diceroll = dicerollElement.textContent?.slice(1);
+            chats.push({person,content,diceroll});
+        }
+        else { chats.push({person,content}); }
+    }
+
+    // 取得結果を返す
+    return chats;
 }
