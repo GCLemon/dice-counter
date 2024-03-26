@@ -3,6 +3,8 @@ import CloseIcon from "@mui/icons-material/close";
 import React from "react";
 import Draggable from "react-draggable";
 
+import scrape from "./scrape";
+
 // ダイスカウンターのウィンドウ
 export default function Window() {
 
@@ -34,7 +36,7 @@ export default function Window() {
                                 以下をクリックすると、ダイスロールの集計結果がJSONで出力されます。
                             </Typography>
                         </ListItemText>
-                        <ListItemButton sx={buttonStyle}>For クトゥルフ神話TRPG (6版/7版)</ListItemButton>
+                        <ListItemButton sx={buttonStyle} onClick={scrape}>For クトゥルフ神話TRPG (6版/7版)</ListItemButton>
                         <ListItemButton sx={buttonStyle}>For エモクロアTRPG</ListItemButton>
                     </DialogContent>
                 </Paper>

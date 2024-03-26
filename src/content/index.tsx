@@ -22,4 +22,4 @@ const createWindow = () => {
 };
 
 // ロード時のイベントリスナーを追加
-window.addEventListener('load', () => createWindow());
+window.onload = createWindow;
