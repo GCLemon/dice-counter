@@ -31,7 +31,7 @@ function Popup() {
       <AppBar elevation={0} color="transparent" position="static">
           <Toolbar variant="dense">
               <Typography variant="subtitle2" sx={{color:'white',fontWeight:'bold',flexGrow:1}}>
-                  ダイスカルテ
+                  ダイスカウンター
               </Typography>
           </Toolbar>
       </AppBar>
