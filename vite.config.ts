@@ -7,7 +7,7 @@ import path from 'path';
 const manifest = defineManifest({
   manifest_version: 3,
   name: 'Dice Counter',
-  version: '0.0.0',
+  version: '1.0.0',
   action: { default_popup: 'index.html' },
   content_scripts: [{
     matches: ['https://ccfolia.com/rooms/*'],
