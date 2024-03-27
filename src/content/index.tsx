@@ -23,4 +23,5 @@ const createWindow = () => {
 };
 
 // ロード時のイベントリスナーを追加
-window.addEventListener('load', createWindow);
+if(document.readyState === 'complete') { createWindow(); }
+else { document.addEventListener('DOMContentLoaded', createWindow); }
