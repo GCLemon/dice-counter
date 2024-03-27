@@ -5,6 +5,7 @@ import Draggable from 'react-draggable';
 
 import scrape from './scrape';
 import cthulhu from './cthulhu';
+import emoklore from './emoklore';
 
 // ダイスカウンターのウィンドウ
 export default function Window() {
@@ -26,6 +27,14 @@ export default function Window() {
         setIsCounting(true);
         const chats = await scrape();
         cthulhu(chats);
+        setIsCounting(false);
+    };
+
+    // エモクロアTRPGのダイス目を計算する
+    const emokloreCount = async () => {
+        setIsCounting(true);
+        const chats = await scrape();
+        emoklore(chats);
         setIsCounting(false);
     };
 
@@ -59,7 +68,7 @@ export default function Window() {
                                 </Typography>
                             </ListItemText>
                             <ListItemButton sx={buttonStyle} onClick={cthulhuCount}>For クトゥルフ神話TRPG (6版/7版)</ListItemButton>
-                            <ListItemButton sx={buttonStyle}>For エモクロアTRPG</ListItemButton>
+                            <ListItemButton sx={buttonStyle} onClick={emokloreCount}>For エモクロアTRPG</ListItemButton>
                         </DialogContent>
                     </Paper>
                 </Draggable>

@@ -1,3 +1,4 @@
+// クトゥルフ神話TRPGのダイス結果を集計する
 export default function cthulhu(items:ChatItem[]) {
 
     // ダイスロール結果を取得
@@ -25,7 +26,7 @@ export default function cthulhu(items:ChatItem[]) {
 function extractRolls(items:ChatItem[]) {
 
     // 正規表現を組み立て
-    const contentExpr = /(x(\d+)\s+)?((CCB|1(d|D)100)&lt;=[0-9+\-*\/()]+)\s+(.*)/;
+    const contentExpr = /(x(\d+)\s+)?((c|C)(c|C)(b|B)|1(d|D)100)&lt;=[0-9+\-*\/()]+\s+(.*)/;
     const dicerollExpr = /\(.+<=(\d+)\) ＞ (\d+) ＞ (.+)/g;
 
     // ダイスロール結果を格納する配列
@@ -42,12 +43,11 @@ function extractRolls(items:ChatItem[]) {
 
             // 判定回数・技能名・技能値を取得
             const count = contentMatch[2] ? parseInt(contentMatch[2]) : 1;
-            const ability = contentMatch[6];
+            const ability = contentMatch[8];
             const target = parseInt(dicerollMatch[0][1]);
 
             // 判定回数分結果を変換
             for(let x = 0; x < count; ++x) {
-                console.log(dicerollMatch[x][2])
                 const result = Number(dicerollMatch[x][2]);
                 const roll:CthulhuRoll = {
                     person: item.person,
