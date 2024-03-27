@@ -1,5 +1,5 @@
-import ReactDOM from "react-dom/client";
-import Window from "./window";
+import ReactDOM from 'react-dom/client';
+import Window from './window';
 
 // ウィンドウを作る
 const createWindow = () => {
