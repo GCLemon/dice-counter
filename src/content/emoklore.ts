@@ -38,7 +38,7 @@ function extractRolls(items:ChatItem[]) {
 
     // 正規表現を組み立て
     const contentExpr = /(x(\d+)\s+)?[0-9+\-*\/()]*(d|D)(m|M)&lt;=[0-9+\-*\/()]+\s+(.*)/;
-    const dicerollExpr = /\((\d+)DM<=(\d+)\) ＞ (\[(\d+,?)+\]) ＞ (\d+) ＞ 成功数(\d+) (.*)/g;
+    const dicerollExpr = /\((\d+)DM<=(\d+)\) ＞ (\[(\d+(, )?)+\]) ＞ (\d+) ＞ 成功数(\d+) (.*)/g;
 
     // ダイスロール結果を格納する配列
     const rolls = new Array<EmokloreRoll>();
@@ -60,8 +60,8 @@ function extractRolls(items:ChatItem[]) {
 
             // 判定回数分結果を変換
             for(let x = 0; x < count; ++x) {
-                const result = [...dicerollMatch[x][3].matchAll(/d+/)].map(value => parseInt(value[0]));
-                const success = parseInt(dicerollMatch[x][5]);
+                const result = [...dicerollMatch[x][3].matchAll(/\d+/g)].map(value => parseInt(value[0]));
+                const success = parseInt(dicerollMatch[x][7]);
                 const roll:EmokloreRoll = {
                     person: item.person,
                     ability: ability,
